@@ -19,6 +19,7 @@
 - cors
 - date fns
 - dotenv
+- concurrently
 
 ## Database:
 

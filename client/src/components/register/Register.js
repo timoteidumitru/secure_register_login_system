@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   faCheck,
   faTimes,
@@ -12,6 +13,7 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = "/register";
 
 const Register = () => {
+  let navigate = useNavigate();
   const userRef = useRef();
   const errRef = useRef();
 
@@ -29,6 +31,16 @@ const Register = () => {
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (success) {
+        return navigate("/auth");
+      }
+    }, 1700);
+
+    return () => clearTimeout(timeout);
+  }, [navigate, success]);
 
   useEffect(() => {
     userRef.current.focus();
@@ -90,7 +102,7 @@ const Register = () => {
     <>
       {success ? (
         <section>
-          <h1>Success!</h1>
+          <h1>Successfuly register new account!</h1>
           <p>
             <a href="/auth">Sign In</a>
           </p>

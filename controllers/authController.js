@@ -15,6 +15,10 @@ const handleLogin = async (req, res) => {
   const match = await bcrypt.compare(pwd, foundUser.password);
   if (match) {
     // const roles = Object.values(foundUser.roles).filter(Boolean);
+
+    // redirect to home page
+    // res.redirect("/");
+
     // create JWTs
     const accessToken = jwt.sign(
       {
@@ -41,6 +45,7 @@ const handleLogin = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     }); //secure: true,
     res.json({ accessToken });
+    // res.redirect("/");
   } else {
     res.sendStatus(401);
   }

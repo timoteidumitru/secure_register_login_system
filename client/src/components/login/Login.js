@@ -1,10 +1,12 @@
 import { useRef, useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthProvider";
-
 import axios from "../../api/axios";
+import SuccessLogin from "../redirect/SuccessLogin";
 const LOGIN_URL = "/auth";
 
 const Login = () => {
+  let navigate = useNavigate();
   const { setAuth } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
@@ -13,6 +15,16 @@ const Login = () => {
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (success) {
+        return navigate("/");
+      }
+    }, 1500);
+
+    return () => clearTimeout(timeout);
+  }, [navigate, success]);
 
   useEffect(() => {
     userRef.current.focus();
@@ -58,13 +70,7 @@ const Login = () => {
   return (
     <>
       {success ? (
-        <section>
-          <h1>You are logged in!</h1>
-          <br />
-          <p>
-            <a href="/">Go to Home</a>
-          </p>
-        </section>
+        <SuccessLogin />
       ) : (
         <section>
           <p

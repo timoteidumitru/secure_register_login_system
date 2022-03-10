@@ -1,14 +1,14 @@
 {
-  "name": "15tut",
+  "name": "secure-login-system",
   "version": "1.0.0",
-  "description": "MongoDB tutorial",
+  "description": "MongoDB",
   "main": "server.js",
   "scripts": {
     "client": "cd client && npm start",
     "server": "nodemon server",
     "start": "concurrently \"nodemon server\" \"cd client && npm start\""
   },
-  "author": "Dave Gray",
+  "author": "Timotei Dumitru",
   "license": "ISC",
   "engines": {
     "node": "14.x"
